@@ -32,18 +32,24 @@ Should not get in the way of plugins like `auto-pairs` or `compe`, which tend to
 
 ## Options
 
-If there are certain filetypes you'd like to omit from this functionality, you can use `setup` to do that:
+If there are certain filetypes or buftypes you'd like to omit from this functionality, you can use `setup` to do that:
 
 ```
 require("stay-centered").setup({
   skip_filetypes = {"lua", "typescript"},
+  skip_buftypes = {"terminal", "quickfix"},
 })
 ```
 
 The filetype is determined by the vim filetype, not the file extension. In order to get the filetype, open a file and run the command:
 
 ```
-:vim.bo.filetype
+:lua print(vim.bo.filetype)
+```
+
+and for buftype
+```
+:lua print(vim.bo.buftype)
 ```
 
 #### Example
@@ -56,11 +62,15 @@ const myVar
 
 :lua print(vim.bo.filetype)
 #=> typescript
+
+:lua print(vim.bo.buftype)
+#=> quickfix
 ```
 
 ```
 // plugins.lua
 require("stay-centered").setup({
   skip_filetypes = {"typescript"},
+  skip_buftypes = {"terminal", "quickfix"},
 })
 ```

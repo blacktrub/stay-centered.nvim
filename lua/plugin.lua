@@ -1,12 +1,12 @@
 local mode = require("mode")
 
-local function must_skip_file(skip_filetypes, current_type)
-	if skip_filetypes == nil then
+local function must_skip_file(to_skip, cur)
+	if to_skip == nil then
 		return false
 	end
 
-	for _, value in ipairs(skip_filetypes) do
-		if value == current_type then
+	for _, value in ipairs(to_skip) do
+		if value == cur then
 			return true
 		end
 	end
@@ -16,6 +16,10 @@ end
 
 local function stay_centered(ctx)
 	if must_skip_file(ctx.skip_filetypes, vim.bo.filetype) then
+		return
+	end
+
+	if must_skip_file(ctx.skip_buftypes, vim.bo.buftype) then
 		return
 	end
 
